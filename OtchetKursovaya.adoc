@@ -3,7 +3,7 @@
 == Окружение программы
 [#img-image1,link=https://sun9-46.userapi.com/impg/qEq2ttn5v7UkvSyMC6MZx-FuLBFYFAFBHQ0G3w/kPoDd-BhFOM.jpg?size=1563x387&quality=96&sign=f365ade28893cc7ee24a1fef86affa4b&type=album] 
 image::image1.jpg[]
-.Параметры датчика
+.Параметры датчика 
 |===
 |Наименование | Описание
 
@@ -19,6 +19,7 @@ image::image1.jpg[]
 :table-caption!:
 
 .Параметры датчика
+|link:https://kurl.ru/kxTMB[], с|
 |===
 |Измеряемые физические величины | Система единиц |Регистры, где находятся необработанные выходные данные|Регистры, которые устанавливают параметры сбора данных| объем данных, бит
 
