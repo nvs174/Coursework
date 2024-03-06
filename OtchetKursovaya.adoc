@@ -1,8 +1,7 @@
 
 :stem:
 == Окружение программы
-[#img-image1,link=https://sun9-46.userapi.com/impg/qEq2ttn5v7UkvSyMC6MZx-FuLBFYFAFBHQ0G3w/kPoDd-BhFOM.jpg?size=1563x387&quality=96&sign=f365ade28893cc7ee24a1fef86affa4b&type=album] 
-image::image1.jpg[]
+image::picter/1.png[]
 .Параметры датчика 
 |===
 |Наименование | Описание
