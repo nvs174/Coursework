@@ -30,7 +30,7 @@ image::picter/1.png[]
 link:https://kurl.ru/kxTMB[], с 26, 27, 29, 30.
 
 .Преобразование температуры
-[source.cpp]
+[source, c]
 ----
 BME280_S32_t t_fine;
 BME280_S32_t BME280_compensate_T_int32(BME280_S32_t adc_T)
