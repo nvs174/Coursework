@@ -11,8 +11,6 @@ image::picter/1.png[]
 
 |STM32|  это отладочная плата, которая позволит изучить возможности микроконтроллера STM32F411RET6 на базе ядра Cortex-M4, режим DMA использует little-endian.
 |BlueTooth Bee HC-06| Беспроводной модуль для приема/передачи данных по протоколу Bluetooth. Особенности: - Поддерживает работу с протоколом связи UART, Bluetooth 2.0; - Скорость передачи данных: 9600 бит/сек; - Встроенная антенна; - Радиус действия до 10 метров.
-
-
 |===
 
 == BME280
@@ -65,32 +63,10 @@ link:https://kurl.ru/kxTMB[], с 26, 27, 29, 30.
 |0x8A|dig_T2|signed short
 
 |0x8C|dig_T3|signed short
-|||
-|0x8E|dig_P1|unsigned short
-|0x90|dig_P2|signed short
-|0x92|dig_P3|signed short
-|0x94|dig_P4|signed short
-|0x96|dig_P5|signed short
-|0x98|dig_P6|signed short
-|0x9A|dig_P7|signed short
-|0x9C|dig_P8|signed short
-|0x9E|dig_P9|signed short
-|||
-|0xA1|dig_H1|unsigned short
-|0xE1|dig_H2|signed short
-|0xE3|dig_H3|unsigned char
-|0xE4|dig_H4|signed short
-|0xE5|dig_H5|signed short
-|0xE7|dig_H6|signed shortS
 |===
 
 
 * dig_T - Обозначение регистра откуда читаем калибровочное значение температуры
-
-* dig_P - Обозначение регистра откуда читаем калибровочное значение давления 
-
-* dig_H - Обозначение регистра откуда читаем калибровочное значение влажности 
-
 
 * Все данные передаются младшим байтом в перед, по этому будет необходима функция перестановки байтов
 
