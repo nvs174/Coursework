@@ -241,3 +241,24 @@ stem:[Frequency = 6666666,6667]
 
 
 == UML диаграмма
+
+.UML диаграмма
+image::picter/6.png[]
+
+
+.Обозначение функций интерфейса IBME280
+[%autowidth]
+|===
+|Название|Описание
+|ReadData()|
+|WriteData()|
+|ReadRegU16()|
+|ReadRegS16()|
+||
+||
+||
+
+
+
+|===
+
