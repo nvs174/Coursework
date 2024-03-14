@@ -243,5 +243,5 @@ stem:[Frequency = 6'666'666,6667]
 == UML диаграмма
 
 .UML диаграмма
-image::picter/6.png[]
+image::picter/6.jpg[]
 
