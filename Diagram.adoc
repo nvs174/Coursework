@@ -1,5 +1,5 @@
 :stem:
-== Описание классов MeasureTask, BME280
+== Заполнение классов MeasureTask, BME280
 
 .Диаграмма "MeasureTask"
 image::picter2/1.png[]
