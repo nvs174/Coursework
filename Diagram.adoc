@@ -10,6 +10,60 @@ image::picter2/1.png[]
 * Данный класс имеет переменную mUpdare  в которую через агрегацию интерфейса IMeasurementsUpdate, передается метод UpdateCalc() - данный метод вызывает обновление расчетных данных.
 
 
+.Лисинг класса IMeasurementsController
+[source, cpp]
+----
+#ifndef IMEASUREMENTSCONTRILLER
+#define IMEASUREMENTSCONTRILLER
+
+class IMeasurementsController
+{
+public:
+  virtual void Update () = 0;
+  
+  
+private:
+};
+#endif
+----
+
+
+
+.Лисинг класса MeasureTask
+[source, cpp]
+----
+#ifndef MEASURETASK
+#define MEASURETASK
+
+#include "thread.hpp" // for OsWrapper::Thread<>
+#include "imeasurementscontroller.h" // for update register
+
+
+class MeasureTask: public OsWrapper::Thread<128> 
+{
+public:
+  MeasureTask(IMeasurementsController& mController, IMeasurementsUpdate& mUpdarte) : mController(mController), mUpdarte(mUpdarte) {}
+  
+  void Execute() override 
+  {
+    for (;;) 
+    {
+      mController.Update();
+      mUpdarte.Update();
+      
+    }
+  
+  }
+  
+  
+private:
+  IMeasurementsController& mController;
+  IMeasurementsUpdate& mUpdarte;
+
+};
+
+#endif
+----
 
 
 .Диаграмма "MeasureTask"
@@ -27,3 +81,117 @@ image::picter2/2.png[]
 * bmeOn - через агрегацию интерфейса IDataNotify переменная сигнализирует о готовности полученных значений кодов с датчика.
 
 * spi - через агрегацию интерфейса ISpi, передается метод ModeWrite(), ModeRead(), Delay().
+
+
+.Лисинг интерфейса ISpi
+[source, cpp]
+----
+#ifndef ISPI
+#define ISPI
+
+class ISpi
+{
+public:
+  virtual void ModeWrite(uint8_t address, uint8_t reg) = 0;
+  virtual void ModeRead(uint8_t address, uint8_t reg) = 0;
+  virtual void Delay(int cycles) = 0;
+  
+
+};
+#endif
+----
+
+.Лисинг класса Spi
+[source, cpp]
+----
+#ifndef SPI
+#define SPI
+#include "ispi.h"
+#include "spi2registers.hpp"
+class Spi: public ISpi 
+{
+public:
+  void ModeWrite(uint8_t address, uint8_t reg) override 
+  {
+    SPI2::DR::Set(address);
+    Delay(100);
+    SPI2::DR::Set(reg);
+    Delay(100);
+  }
+  
+  void ModeRead(uint8_t address, uint8_t reg) override 
+  {
+    
+  SPI2::DR::Write(address);
+  Delay(100);
+  SPI2::DR::Write(reg);
+  Delay(100);
+  }
+  
+  void Delay(int cycles) override 
+  {
+    for(int i = 0; i < cycles; ++i)
+  {
+    asm volatile("");
+  }
+  
+  }
+  
+};
+
+#endif
+----
+
+.Лисинг класса Bme280
+[source, cpp]
+----
+#ifndef BME280
+#define BME280
+
+#include "imeasurementscontroller.h"
+#include "ispi.h"
+#include "spi2registers.hpp"
+#include "idatanotify.h" // for codes from registers.
+
+class Bme280: public IMeasurementsController
+{
+  
+public:
+  Bme280(ISpi& spi, IDataNotify& bmeOn) : spi(spi), bmeOn(bmeOn) {}
+  void Update() override 
+  {
+    spi.ModeRead(BME280_ADDRESS,BME280_REGISTER_DIG_T1);
+    dig_T1 = SPI2::DR::Get();
+    
+    spi.ModeRead(BME280_ADDRESS,BME280_REGISTER_DIG_T3);
+    dig_T3 = SPI2::DR::Get();
+    
+    spi.ModeRead(BME280_ADDRESS,BME280_REGISTER_TEMPDATA);
+    registerCodeT = SPI2::DR::Get();
+    
+    spi.ModeRead(BME280_ADDRESS,BME280_REGISTER_PRESS);
+    registerCodeP = SPI2::DR::Get();
+    
+    spi.ModeRead(BME280_ADDRESS,BME280_REGISTER_HUMIDDATA);
+    registerCodeH = SPI2::DR::Get();
+  }
+  
+  
+
+private:
+  uint16_t dig_T1;
+  int16_t dig_T3;
+  int32_t registerCodeT;
+  int32_t registerCodeP;
+  int16_t registerCodeH;
+  
+  ISpi& spi;
+  IDataNotify& bmeOn;
+  
+};
+#endif
+----
+
+
+
+
