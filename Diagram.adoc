@@ -1,5 +1,5 @@
 :stem:
-== Заполнение классов MeasureTask, BME280
+== Заполнение классов MeasureTask, BME280, Temperature
 
 .Диаграмма "MeasureTask"
 image::picter2/1.png[]
@@ -7,10 +7,10 @@ image::picter2/1.png[]
 * Данный класс имеет переменную mController  в которую через агрегацию интерфейса IMeasurementsController, передается метод Update() - данный метод вызывает обновление данных с регистров.
 
 
-* Данный класс имеет переменную mUpdare  в которую через агрегацию интерфейса IMeasurementsUpdate, передается метод UpdateCalc() - данный метод вызывает обновление расчетных данных.
+* Данный класс имеет переменную mUpdate  в которую через агрегацию интерфейса IMeasurementsUpdate, передается метод UpdateCalc() - данный метод вызывает обновление расчетных данных.
 
 
-.Лисинг класса IMeasurementsController
+.Лисинг интерфейса IMeasurementsController
 [source, cpp]
 ----
 #ifndef IMEASUREMENTSCONTRILLER
@@ -27,6 +27,21 @@ private:
 #endif
 ----
 
+.Лисинг интерфейса IMeasurementsUpdate
+[source, cpp]
+----
+#ifndef IMEASUREMENTSUPDATE
+#define IMEASUREMENTSUPDATE
+
+class IMeasurementsUpdate 
+{
+public: 
+  
+  virtual void UpdateCalc() = 0;
+
+};
+#endif
+----
 
 
 .Лисинг класса MeasureTask
@@ -38,49 +53,45 @@ private:
 #include "thread.hpp" // for OsWrapper::Thread<>
 #include "imeasurementscontroller.h" // for update register
 
-
 class MeasureTask: public OsWrapper::Thread<128> 
 {
 public:
-  MeasureTask(IMeasurementsController& mController, IMeasurementsUpdate& mUpdarte) : mController(mController), mUpdarte(mUpdarte) {}
+  MeasureTask(IMeasurementsController& controller, IMeasurementsUpdate& update) : mController(controller), mUpdate(mUpdate) {}
   
   void Execute() override 
   {
     for (;;) 
     {
       mController.Update();
-      mUpdarte.Update();
-      
+      mUpdate.UpdateCalc();
+      Sleep(100ms);
     }
   
   }
-  
-  
 private:
   IMeasurementsController& mController;
-  IMeasurementsUpdate& mUpdarte;
+  IMeasurementsUpdate& mUpdate;
 
 };
-
 #endif
 ----
 
 
-.Диаграмма "MeasureTask"
+.Окружение класса "BME280"
 image::picter2/2.png[]
 
-Данный класс имеет 7 переменных:
-* registerCodeT - регистр откуда будут записываться данные температуры
 
-* registerCodeH - регистр откуда будут записываться данные влажности
+.Переменные класса
+[%autowidth]
+|===
+|Наименование|Описание
+|digRegT1|переменная куда будут записываться данные калибровочных значений температуры
+|digRegT3|переменная куда будут записываться данные калибровочных значений температуры
+|registerCodeT|переменная куда будут записываться данные с регистра температуры
+|registerCodeP|переменная куда будут записываться данные с регистра давления
+|registerCodeH|переменная куда будут записываться данные с регистра влажности
+|===
 
-* registerCodeP - регистр откуда будут записываться данные давления
-
-* dig_T1,dig_T3 - регистры откуда будут записываться данные калибровочных значений температуры
-
-* bmeOn - через агрегацию интерфейса IDataNotify переменная сигнализирует о готовности полученных значений кодов с датчика.
-
-* spi - через агрегацию интерфейса ISpi, передается метод ModeWrite(), ModeRead(), Delay().
 
 
 .Лисинг интерфейса ISpi
@@ -92,14 +103,25 @@ image::picter2/2.png[]
 class ISpi
 {
 public:
-  virtual void ModeWrite(uint8_t address, uint8_t reg) = 0;
-  virtual void ModeRead(uint8_t address, uint8_t reg) = 0;
-  virtual void Delay(int cycles) = 0;
-  
-
+  virtual void ModeWrite(uint8_t reg) = 0;
+  virtual void ModeRead(uint8_t reg) = 0;
 };
 #endif
 ----
+
+.Лисинг интерфейса IDataNotifyT
+[source, cpp]
+----
+#ifndef IDATANOTIFYT
+#define IDATANOTIFYT
+
+class IDataNotifyT
+{
+public:
+  virtual void OnUpdate(int32_t CodeRegisters, uint16_t TempRegister1, int16_t TempRegister3) = 0;
+};
+#endif
+----  
 
 .Лисинг класса Spi
 [source, cpp]
@@ -107,36 +129,23 @@ public:
 #ifndef SPI
 #define SPI
 #include "ispi.h"
-#include "spi2registers.hpp"
+#include "spi2registers.hpp" // for SPI2
+#include "gpiobregisters.hpp"  // for GPIOB
 class Spi: public ISpi 
 {
 public:
-  void ModeWrite(uint8_t address, uint8_t reg) override 
+  void ModeWrite(uint8_t reg) override 
   {
-    SPI2::DR::Set(address);
-    Delay(100);
-    SPI2::DR::Set(reg);
-    Delay(100);
+    reg = (reg & 0x7f);
+    GPIOB::ODR::ODR12::Low::Set();
+    SPI2::DR::Write(reg);
   }
   
-  void ModeRead(uint8_t address, uint8_t reg) override 
+  void ModeRead(uint8_t reg) override 
   {
-    
-  SPI2::DR::Write(address);
-  Delay(100);
-  SPI2::DR::Write(reg);
-  Delay(100);
+    GPIOB::ODR::ODR12::Low::Set();
+    SPI2::DR::Write(reg);
   }
-  
-  void Delay(int cycles) override 
-  {
-    for(int i = 0; i < cycles; ++i)
-  {
-    asm volatile("");
-  }
-  
-  }
-  
 };
 
 #endif
@@ -145,49 +154,42 @@ public:
 .Лисинг класса Bme280
 [source, cpp]
 ----
-#ifndef BME280
-#define BME280
+#ifndef TEMPERATURE
+#define TEMPERATURE
 
-#include "imeasurementscontroller.h"
-#include "ispi.h"
-#include "spi2registers.hpp"
-#include "idatanotify.h" // for codes from registers.
+#include "idatanotifyt.h"
 
-class Bme280: public IMeasurementsController
+class Temperature: public IFloatDataProvider, public IMeasurementsUpdate, public IDataNotifyT
 {
-  
-public:
-  Bme280(ISpi& spi, IDataNotify& bmeOn) : spi(spi), bmeOn(bmeOn) {}
-  void Update() override 
-  {
-    spi.ModeRead(BME280_ADDRESS,BME280_REGISTER_DIG_T1);
-    dig_T1 = SPI2::DR::Get();
-    
-    spi.ModeRead(BME280_ADDRESS,BME280_REGISTER_DIG_T3);
-    dig_T3 = SPI2::DR::Get();
-    
-    spi.ModeRead(BME280_ADDRESS,BME280_REGISTER_TEMPDATA);
-    registerCodeT = SPI2::DR::Get();
-    
-    spi.ModeRead(BME280_ADDRESS,BME280_REGISTER_PRESS);
-    registerCodeP = SPI2::DR::Get();
-    
-    spi.ModeRead(BME280_ADDRESS,BME280_REGISTER_HUMIDDATA);
-    registerCodeH = SPI2::DR::Get();
-  }
-  
+  public:
   
 
+  void UpdateCalc() override  // for IMeasurementsUpdate
+  {
+    measuredX = ((adcT / 16) - digT1);
+    measuredT = measuredX * digT1 + ((measuredX * measuredX * digT3) / 65536);
+    measuredT = measuredT / 1024;
+  }
+    
+  void  OnUpdate(int32_t CodeRegisters, uint16_t TempRegister1, int16_t TempRegister3)  override  // for IDataNotifyT
+  {
+    adcT = CodeRegisters;
+    
+    digT1 = TempRegister1;
+    
+    digT3 = TempRegister3;
+  }
+    
+  float GetData() override  // for IFloatDataProvider
+  {
+    
+  }  
 private:
-  uint16_t dig_T1;
-  int16_t dig_T3;
-  int32_t registerCodeT;
-  int32_t registerCodeP;
-  int16_t registerCodeH;
-  
-  ISpi& spi;
-  IDataNotify& bmeOn;
-  
+  float measuredX;
+  float measuredT;
+  uint16_t digT1;
+  int16_t digT3;
+  int32_t adcT; 
 };
 #endif
 ----
