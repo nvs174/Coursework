@@ -18,14 +18,6 @@ public:
   SPI2::DR::Write(rx[0]);
   while(!SPI2::SR::BSY::NotBusy::IsSet()) {}
   GPIOB::ODR::ODR12::High::Set();
-    
-    
-    //tx[0]= reg | 0x7F;
-    //GPIOB::ODR::ODR12::Low::Set();
-    //SPI2::DR::Write(tx[0]);
-    //while(!SPI2::SR::BSY::NotBusy::IsSet()) {}
-    //GPIOB::ODR::ODR12::High::Set();
-    //delay(5);
   }
   
   
@@ -38,16 +30,9 @@ public:
     SPI2::DR::Write(tx[0]);
     while(!SPI2::SR::BSY::NotBusy::IsSet()) {}
     GPIOB::ODR::ODR12::High::Set();
-    delay(5);
     return static_cast<std::uint8_t> (SPI2::DR::Get());
   }
-  void delay(int cycles)
-{
-  for(int i = 0; i < cycles; ++i)
-  {
-    asm volatile("");
-  }
-}
+ 
 private:
   uint8_t tx[28]={0,};
   //uint8_t rxarray[28]={0,};
