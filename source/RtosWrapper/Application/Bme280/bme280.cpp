@@ -1,9 +1,9 @@
 #ifndef BME280
 #define BME280
 
-#include "imeasurementscontroller.h"
-#include "ispi.h"
-#include "spi2registers.hpp"
+#include "imeasurementscontroller.h" // for Update 
+#include "ispi.h" // for ModSPI
+#include "spi2registers.hpp" // for SPI register
 
 
 #include <iostream>
@@ -16,7 +16,7 @@ public:
   
   void Update() override 
   { 
-    id = mspi.ModeRead(BME280_REG_ID);
+    auto id = mspi.ModeRead(BME280_REG_ID); // TODO чисто для проверки
  
     if (id == 0) 
     {
@@ -28,7 +28,6 @@ public:
     } 
   }
 private:
-  uint8_t id;
   ISpi& mspi;
 };
 #endif
