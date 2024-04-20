@@ -1,6 +1,6 @@
 #ifndef SPI
 #define SPI
-#include "ispi.h"
+#include "ispi.h" // for ModSPI
 #include "spi2registers.hpp" // for SPI2
 #include "gpiobregisters.hpp"  // for GPIOB
 class Spi: public ISpi 
