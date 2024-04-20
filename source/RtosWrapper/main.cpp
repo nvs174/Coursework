@@ -59,10 +59,8 @@ int __low_level_init(void)
 
 
 Spi spi;
-Temperature temp;
 
-Bme280 bme (spi,temp);
-
+Bme280 bme (spi);
 MeasureTask measureTask (bme);
 
 
