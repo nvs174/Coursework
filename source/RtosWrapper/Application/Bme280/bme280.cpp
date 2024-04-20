@@ -4,9 +4,7 @@
 #include "imeasurementscontroller.h"
 #include "ispi.h"
 #include "spi2registers.hpp"
-#include "idatanotifyt.h"
-#include "idatanotifyp.h"
-#include "idatanotifyh.h"
+
 
 #include <iostream>
 
