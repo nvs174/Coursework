@@ -29,14 +29,8 @@ public:
       std::cout << "yes" << std::endl;
     } 
   }
-  
-  
-
 private:
   uint8_t id;
-  
   ISpi& mspi;
-  
-  
 };
 #endif
