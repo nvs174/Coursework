@@ -54,7 +54,7 @@ public:
     return static_cast<std::int16_t> (SPI2::DR::Get());
   }
  
-  int32_t ModeReadTempPress(uint8_t Reg) override 
+  int32_t ModeReadTempPress(uint8_t reg) override 
   {
     tx[1]={0};
     tx[0]= reg | 0x80;
@@ -67,7 +67,7 @@ public:
   }
   
   
-  int16_t ModeReadHam(uint8_t Reg) override 
+  int16_t ModeReadHam(uint8_t reg) override 
   {
     tx[1]={0};
     tx[0]= reg | 0x80;
