@@ -4,8 +4,5 @@
 .Диаграмма "MeasureTask"
 image::picter2/1.png[]
 
-* Данный класс имеет переменную mController  в которую через агрегацию интерфейса IMeasurementsController, передается метод Update() - данный метод вызывает обновление данных с регистров.
-
-
 .Окружение класса "BME280"
 image::picter2/2.png[]
