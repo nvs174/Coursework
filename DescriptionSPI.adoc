@@ -1,4 +1,12 @@
 :stem:
 == Настройка SPI
 
+.Настройка SPI интерфейса
+image::picter2/7.png[]
+
+.SPI Write
+image::picter2/8.png[]
+
+.SPI Read
+image::picter2/9.png[]
 
