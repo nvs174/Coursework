@@ -1,8 +1,8 @@
 :stem:
 == Заполнение классов Temperature, Press, Humidity, DewPoint
 
-.Диаграмма "MeasureTask"
+.связь классов с  "IMeasurementsController"
 image::picter2/3.png[]
 
-.Окружение класса "BME280"
+.связь классов с  "IMeasurementsUpdate"
 image::picter2/4.png[]
