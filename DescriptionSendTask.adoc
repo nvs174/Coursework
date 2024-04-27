@@ -1,0 +1,8 @@
+:stem:
+== Заполнение классов Usart, SendTask
+
+.связь классов с  "SendTask"
+image::picter2/5.png[]
+
+.связь классов с  "Usart"
+image::picter2/6.png[]
