@@ -10,3 +10,6 @@ image::picter2/8.png[]
 .SPI Read
 image::picter2/9.png[]
 
+
+.Конфигурация SPI2
+image::picter2/10.jpeg[]
