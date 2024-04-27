@@ -13,3 +13,12 @@ image::picter2/9.png[]
 
 .Конфигурация SPI2
 image::picter2/10.jpeg[]
+
+
+.Конфигурация SPI на датчике
+image::picter2/11.png[]
+
+
+.Подключение датчика к отладочной плате
+image::picter2/12.png[]
+
