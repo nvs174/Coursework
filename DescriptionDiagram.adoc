@@ -2,7 +2,7 @@
 == Описание архитектуры
 
 .Диаграмма "задачи"
-image::picter/1.jpg[]
+image::picter/7.png[]
 
 .Логика работы архитектуры
 [%autowidth]
@@ -33,7 +33,7 @@ Usart через IFloatDataProvider получает измеряемые пар
 |===
 
 .Диаграмма "Обновление расчетов"
-image::picter/2.jpg[]
+image::picter/8.png[]
 .Описание блоков
 [%autowidth]
 |===
@@ -47,7 +47,7 @@ image::picter/2.jpg[]
 |===
 
 .Диаграмма "Обновление регистров"
-image::picter/3.jpg[]
+image::picter/9.png[]
 
 .Описание блоков
 [%autowidth]
