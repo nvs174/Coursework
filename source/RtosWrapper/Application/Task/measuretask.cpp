@@ -8,25 +8,25 @@
 class MeasureTask: public OsWrapper::Thread<128> 
 {
 public:
-  MeasureTask(IMeasurementsController& controller, IMeasurementsUpdate& updateT, IMeasurementsUpdate& updateH, IMeasurementsUpdate& updateP, IMeasurementsUpdate& updatePoint) : mController(controller), mUpdateT(updateT), mUpdateH(updateH), mUpdateP(updateP), mUpdatePoint(updatePoint) {}
+  MeasureTask(IMeasurementsController& controller, IMeasurementsUpdate& updateT, IMeasurementsUpdate& updateH, IMeasurementsUpdate& updateP, IMeasurementsUpdate& updatePoint) : mController(controller), temperature(updateT), humidity(updateH), pressure(updateP), dewpoint(updatePoint) {}
   void Execute() override 
   {
     for (;;) 
     {
       mController.Update();
-      mUpdateT.UpdateCalc();
-      mUpdateH.UpdateCalc();
-      mUpdateP.UpdateCalc();
-      mUpdatePoint.UpdateCalc();
+      temperature.Calculation();
+      humidity.Calculation();
+      pressure.Calculation();
+      dewpoint.Calculation();
       Sleep(100ms);
     }
   }
 private:
   IMeasurementsController& mController;
-  IMeasurementsUpdate& mUpdateT;
-  IMeasurementsUpdate& mUpdateH;
-  IMeasurementsUpdate& mUpdateP;
-  IMeasurementsUpdate& mUpdatePoint;
+  IMeasurementsUpdate& temperature;
+  IMeasurementsUpdate& humidity;
+  IMeasurementsUpdate& pressure;
+  IMeasurementsUpdate& dewpoint;
 };
 
 #endif
