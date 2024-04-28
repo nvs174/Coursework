@@ -1,8 +1,8 @@
 :stem:
 == Заполнение классов Temperature, Press, Humidity, DewPoint
 
-.связь классов с  "IMeasurementsController"
+.связь классов с  "IMeasurementsUpdate "
 image::picter2/14.png[]
 
-.связь классов с  "IMeasurementsUpdate"
+.связь классов с  "IMeasurementsController"
 image::picter2/15.png[]

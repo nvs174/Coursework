@@ -4,15 +4,13 @@
 #include "idatanotifyh.h" // for IDataNotifyH
 #include "imeasurementsupdate.h" // for IMeasurementsUpdate
 #include "ifloatdataprovider.h" // for IFloatDataProvider 
-#include <iostream> // for std::
 
 class Humidity: public IFloatDataProvider, public IMeasurementsUpdate, public IDataNotifyH
 {
 public:
-  void UpdateCalc() override // uses IMeasurementsUpdate
+  void Calculation() override // uses IMeasurementsUpdate
   {
-    measuredH = adcH * 0.008;
-    std::cout << "Влажность 50%" << std::endl; // TODO удалить потом 
+    value = static_cast<float>(adcH) * 0.008f;
   }
     
   void  OnUpdate(int16_t registerCodeH)  override  // uses IDataNotifyH
@@ -20,13 +18,13 @@ public:
     adcH = registerCodeH;
   }
     
-  void GetData(float* data)  override // uses IFloatDataProvider
+  float GetData()  override // uses IFloatDataProvider
   {
-    measuredH = 22.0f;
-    *data =  measuredH;// TODO удалить потом
+    return value;
   } 
+  
 private:
    int16_t adcH;
-   float measuredH;  
+   float value;  
 };
 #endif

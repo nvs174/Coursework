@@ -1,33 +1,37 @@
-#ifndef PRESS
-#define PRESS
+#ifndef TEMPERATURE
+#define TEMPERATURE
 
-#include "idatanotifyp.h" // for IDataNotifyp
+#include "idatanotifyt.h" // for IDataNotifyT
 #include "imeasurementsupdate.h" // for IMeasurementsUpdate
 #include "ifloatdataprovider.h" // for IFloatDataProvider 
-#include <iostream> // for std::
 
-class Press: public IFloatDataProvider, public IMeasurementsUpdate, public IDataNotifyP
+class Temperature: public IFloatDataProvider, public IMeasurementsUpdate, public IDataNotifyT
 {
-public:
-  void UpdateCalc() override // uses IMeasurementsUpdate
+  public:
+    
+  void  OnUpdate(uint16_t digRegT1, int16_t digRegT3, int32_t registerCodeT)  override  // // uses IDataNotifyT
   {
-    measuredP = (adcP / 16) * 0.18f;
-    std::cout << "Давление = 5" << std::endl; // TODO удалить потом 
+    adcT = registerCodeT;
+    digT1 = digRegT1;
+    digT3 = digRegT3;
+  }
+  
+   void Calculation() override // uses IMeasurementsUpdate
+  {
+    auto measuredX = ((static_cast<float>(adcT) / 16.0f) - static_cast<float>(digT1));
+    temperature = measuredX * static_cast<float>(digT1) + ((measuredX * measuredX * static_cast<float>(digT3)) / 65536.0f);
+    temperature = temperature / 1024.0f;
   }
     
-  void  OnUpdate(int32_t registerCodeP)  override  // uses IDataNotifyP
+  float GetData() override // uses IFloatDataProvider
   {
-    adcP = registerCodeP;
-  }
-    
-  void GetData(float* data) override  // uses IFloatDataProvider
-  {
-    measuredP = 21.0f;
-   *data = measuredP;
-  } 
+    return temperature;
+  }  
+  
 private:
-   int32_t adcP;
-   float measuredP;
-    
+  float temperature;
+  uint16_t digT1;
+  int16_t digT3;
+  int32_t adcT; 
 };
 #endif

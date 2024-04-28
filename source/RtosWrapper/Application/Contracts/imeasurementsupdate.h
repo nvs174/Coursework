@@ -5,7 +5,7 @@ class IMeasurementsUpdate
 {
 public: 
   
-  virtual void UpdateCalc() = 0;
+  virtual void Calculation() = 0;
 
 };
 #endif

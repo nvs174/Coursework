@@ -5,6 +5,6 @@ class IFloatDataProvider
 {
 public:
   
-  virtual void GetData(float* data)= 0;
+  virtual float GetData() =  0;
 };
 #endif

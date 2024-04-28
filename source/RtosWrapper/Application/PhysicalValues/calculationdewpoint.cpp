@@ -9,31 +9,24 @@ class DewPoint: public IFloatDataProvider, public IMeasurementsUpdate
 {
 public:
   DewPoint(IFloatDataProvider& dataT, IFloatDataProvider& dataH) : mdataT(dataT), mdataH(dataH) {}
-  void UpdateCalc() override // uses IMeasurementsUpdate
+  void Calculation() override // uses IMeasurementsUpdate
   {
-    float measuredT;
-    float measuredH; 
-    float const a = 17.27f;
-    float const b = 237.7f;
-    float measuredY;
-        
-    mdataT.GetData(&measuredT);
-    mdataH.GetData(&measuredH);
-    measuredY = ((a * measuredT) / (b + measuredT)) + log(measuredH);
-    measuredD = (b * measuredY) / (a - measuredY);
-    std::cout << "“очка росы 222" << std::endl; // TODO удалить потом 
-    
+    constexpr float a = 17.27f;
+    constexpr float b = 237.7f;        
+    const auto measuredT = mdataT.GetData();
+    const auto measuredH = mdataH.GetData();
+    float measuredY = ((a * measuredT) / (b + measuredT)) + log(measuredH);
+    value = (b * measuredY) / (a - measuredY);
   }
    
     
-  void GetData(float* data) override  // uses IFloatDataProviderD
+  float GetData() override  // uses IFloatDataProviderD
   {
-    measuredD = 23.0f; // TODO удалить потом
-   *data = measuredD;
+    return value;
   }
 private:
   
-  float measuredD; 
+  float value; 
   IFloatDataProvider& mdataT;
   IFloatDataProvider& mdataH;
 };
