@@ -2,7 +2,7 @@
 == Заполнение классов Usart, SendTask
 
 .связь классов с  "SendTask"
-image::picter2/5.png[]
+image::picter2/14.png[]
 
 .связь классов с  "Usart"
-image::picter2/6.png[]
+image::picter2/15.png[]
