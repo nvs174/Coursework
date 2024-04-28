@@ -1,8 +1,8 @@
 :stem:
-== Заполнение классов MeasureTask, BME280, SPI
+== Заполнение классов BME280
 
-.Диаграмма "MeasureTask"
-image::picter2/1.png[]
+.Окружение класса "BME280"
+image::picter3/1.png[]
 
 .Окружение класса "BME280"
 image::picter2/2.png[]
