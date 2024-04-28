@@ -4,5 +4,4 @@
 .Окружение класса "BME280"
 image::picter3/1.png[]
 
-.Окружение класса "BME280"
-image::picter2/2.png[]
+
