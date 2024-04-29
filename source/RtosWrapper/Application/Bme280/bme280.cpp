@@ -27,7 +27,7 @@ public:
   
   void InitBme280() //override 
   {
-    //TODO исправить потом на реализованный метод
+    //TODO исправить, когда будет готов метод
     mspi.WriteByte(BME280_REG_SOFTRESET, BME280_SOFTRESET_VALUE); /*������������ ������*/
     while (mspi.ReadByte(BME280_REGISTER_STATUS) & 0x09 & BME280_STATUS_IM_UPDATE); /*��������� ������ �������, ����� �� ������ � ������*/
     
