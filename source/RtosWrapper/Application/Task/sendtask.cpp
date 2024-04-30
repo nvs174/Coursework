@@ -2,7 +2,7 @@
 #define SENDTASK
 
 #include "thread.hpp" // for OsWrapper::Thread<>
-#include "itransfer.h" // for update register
+#include "itransfer.h" // for update value USART
 
 class SendTask: public OsWrapper::Thread<128> 
 {
