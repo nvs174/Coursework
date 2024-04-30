@@ -3,7 +3,6 @@
 
 #include "imeasurementsupdate.h" // for IMeasurementsUpdate
 #include "ifloatdataprovider.h" // for IFloatDataProvider 
-#include <iostream> // for std::
 
 class DewPoint: public IFloatDataProvider, public IMeasurementsUpdate
 {
@@ -13,9 +12,9 @@ public:
   {
     constexpr float a = 17.27f;
     constexpr float b = 237.7f;        
-    const auto measuredT = mdataT.GetData();
-    const auto measuredH = mdataH.GetData();
-    float measuredY = ((a * measuredT) / (b + measuredT)) + log(measuredH);
+    const auto temperature = mdataT.GetData();
+    const auto humidity = mdataH.GetData();
+    float measuredY = ((a * temperature) / (b + temperature)) + log(humidity);
     value = (b * measuredY) / (a - measuredY);
   }
    

@@ -1,6 +1,6 @@
 #ifndef IDATANOTIFYH
 #define IDATANOTIFYH
-#include <iostream>
+#include <iostream> // for int16_t
 class IDataNotifyH
 {
 public:
