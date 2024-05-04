@@ -1,9 +1,7 @@
 #ifndef DEWPOINT
 #define DEWPOINT
-
 #include "imeasurementsupdate.h" // for IMeasurementsUpdate
 #include "ifloatdataprovider.h" // for IFloatDataProvider 
-
 class DewPoint: public IFloatDataProvider, public IMeasurementsUpdate
 {
 public:
@@ -17,14 +15,12 @@ public:
     float measuredY = ((a * temperature) / (b + temperature)) + log(humidity);
     value = (b * measuredY) / (a - measuredY);
   }
-   
-    
+
   float GetData() override  // uses IFloatDataProviderD
   {
     return value;
   }
 private:
-  
   float value; 
   IFloatDataProvider& mdataT;
   IFloatDataProvider& mdataH;

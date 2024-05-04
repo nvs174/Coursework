@@ -1,6 +1,5 @@
 #ifndef HUMIDITY
 #define HUMIDITY
-
 #include "idatanotifyh.h" // for IDataNotifyH
 #include "imeasurementsupdate.h" // for IMeasurementsUpdate
 #include "ifloatdataprovider.h" // for IFloatDataProvider 

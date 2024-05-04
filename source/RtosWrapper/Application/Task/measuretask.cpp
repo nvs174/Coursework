@@ -1,9 +1,8 @@
 #ifndef MEASURETASK
 #define MEASURETASK
-
 #include "thread.hpp" // for OsWrapper::Thread<>
 #include "imeasurementscontroller.h" // for update register
-#include "imeasurementsupdate.h"
+#include "imeasurementsupdate.h" // for update calculation
 
 class MeasureTask: public OsWrapper::Thread<128> 
 {

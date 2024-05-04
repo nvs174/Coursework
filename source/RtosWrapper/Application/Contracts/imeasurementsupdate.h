@@ -1,6 +1,5 @@
 #ifndef IMEASUREMENTSUPDATE
 #define IMEASUREMENTSUPDATE
-
 class IMeasurementsUpdate 
 {
 public: 
