@@ -6,11 +6,6 @@
 #include "idatanotifyp.h" // for mdataP(dataP)
 #include "idatanotifyh.h" // for mdataH(dataH)
 #include "registerbme280.h" // for BME280_REGISTER_
-#include "ispi.h" // for mspi(spi)
-#include "spi2fieldvalues.hpp" // for SPI2 TODO удалить
-#include "spi2registers.hpp" // TODO удалить 
-#include "gpiobregisters.hpp"  // for GPIOB TODO удалить
-
 class Bme280: public IMeasurementsController//, public IBme280
 {
   

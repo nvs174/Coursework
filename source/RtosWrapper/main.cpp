@@ -32,7 +32,6 @@ Usart usart(temp, press, hum, point);
 MeasureTask measureTask (bme, temp, press, hum, point);
 int main()
 {
-  //bme.InitBme280();
   using namespace OsWrapper;
   Rtos::CreateThread(measureTask, "measureTask");  
   Rtos::Start();

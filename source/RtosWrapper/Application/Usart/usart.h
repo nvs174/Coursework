@@ -11,8 +11,6 @@ class Usart: public ITransfer
 public:
   Usart(IFloatDataProvider& providerT, IFloatDataProvider& providerP, IFloatDataProvider& providerH, IFloatDataProvider& providerD) : mproviderT(providerT), mproviderP(providerP), mproviderH(providerH), mproviderD(providerD) {}
   void TransferData() override;
-  
-
 template <typename T>
 std::string to_string_with_precision(const T a_value, const int n = 2)
 {
