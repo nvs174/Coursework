@@ -2,6 +2,8 @@
 
 #include "rccregisters.hpp" // for RCC
 
+#include "measuretask.h" // for Measure task
+
 std::uint32_t SystemCoreClock = 16'000'000U;
 
 
