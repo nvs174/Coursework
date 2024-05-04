@@ -1,5 +1,6 @@
 #ifndef IFLOATDATAPROVIDER
 #define IFLOATDATAPROVIDER
+
 class IFloatDataProvider 
 {
 public:
