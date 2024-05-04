@@ -2,8 +2,8 @@
 
 void Press::Calculation() 
 {
-  auto bitShiftRight = 16.0f;
-  auto resolutionPressure = 0.18f;
+  constexpr auto bitShiftRight = 16.0f;
+  constexpr auto resolutionPressure = 0.18f;
   value = (static_cast<float>(adcP) / bitShiftRight) * resolutionPressure;
 
 }

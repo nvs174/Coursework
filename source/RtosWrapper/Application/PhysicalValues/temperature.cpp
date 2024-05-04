@@ -9,9 +9,9 @@ void Temperature::OnUpdate(uint16_t digRegT1, int16_t digRegT3, int32_t register
 
  void Temperature::Calculation()
 {
-  auto bitShiftRight1 = 16.0f;
-  auto bitShiftRight2 = 1024.0f;
-  auto maxValueint16 = 65536.0f;
+  constexpr auto bitShiftRight1 = 16.0f;
+  constexpr auto bitShiftRight2 = 1024.0f;
+  constexpr auto maxValueint16 = 65536.0f;
   auto measuredX = ((static_cast<float>(adcT) / bitShiftRight1) - static_cast<float>(digT1));
   temperature = measuredX * static_cast<float>(digT1) + ((measuredX * measuredX * static_cast<float>(digT3)) / maxValueint16);
   temperature = temperature / bitShiftRight2;

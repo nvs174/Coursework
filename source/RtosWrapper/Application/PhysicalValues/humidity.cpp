@@ -2,7 +2,7 @@
 
 void Humidity::Calculation() 
 {
-  auto resolutionHumidity = 0.008f;
+  constexpr auto resolutionHumidity = 0.008f;
   value = static_cast<float>(adcH) * resolutionHumidity;
 }
 
