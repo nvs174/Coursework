@@ -1,29 +1,23 @@
-#ifndef HUMIDITY
-#define HUMIDITY
-#include "idatanotifyh.h" // for IDataNotifyH
-#include "imeasurementsupdate.h" // for IMeasurementsUpdate
-#include "ifloatdataprovider.h" // for IFloatDataProvider 
+#include "humidity.h"
 
-class Humidity: public IFloatDataProvider, public IMeasurementsUpdate, public IDataNotifyH
+void Humidity::Calculation() 
 {
-public:
-  void Calculation() override // uses IMeasurementsUpdate
-  {
-    value = static_cast<float>(adcH) * 0.008f;
-  }
-    
-  void  OnUpdate(int16_t registerCodeH)  override  // uses IDataNotifyH
-  {
-    adcH = registerCodeH;
-  }
-    
-  float GetData()  override // uses IFloatDataProvider
-  {
-    return value;
-  } 
-  
-private:
-   int16_t adcH;
-   float value;  
+  auto resolutionHumidity = 0.008f;
+  value = static_cast<float>(adcH) * resolutionHumidity;
+}
+
+void Humidity::OnUpdate(int16_t registerCodeH)
+{
+  adcH = registerCodeH;
+}
+
+float Humidity::GetData() 
+{
+  value = 22;
+  return value;
 };
-#endif
+
+
+
+
+

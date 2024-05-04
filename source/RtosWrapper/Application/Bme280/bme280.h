@@ -1,0 +1,36 @@
+#ifndef BME280
+#define BME280
+
+#include "imeasurementscontroller.h" // for Update()
+#include "idatanotifyt.h" // for mdataT(dataT)
+#include "idatanotifyp.h" // for mdataP(dataP)
+#include "idatanotifyh.h" // for mdataH(dataH)
+#include "registerbme280.h" // for BME280_REGISTER_
+#include "ispi.h" // for mspi(spi)
+#include "spi2fieldvalues.hpp" // for SPI2 TODO удалить
+#include "spi2registers.hpp" // TODO удалить 
+#include "gpiobregisters.hpp"  // for GPIOB TODO удалить
+
+class Bme280: public IMeasurementsController//, public IBme280
+{
+  
+public:
+  Bme280(ISpi& spi, IDataNotifyT& dataT, IDataNotifyP& dataP, IDataNotifyH& dataH) : mspi(spi), mdataT(dataT), mdataP(dataP), mdataH(dataH) {}
+  
+  void Update() override;
+  
+  
+private:
+  uint16_t digRegT1;
+  int16_t digRegT3;
+  int32_t registerCodeT;
+  int32_t registerCodeP;
+  int16_t registerCodeH;
+  uint8_t resalt;
+  
+  ISpi& mspi;  
+  IDataNotifyT& mdataT;
+  IDataNotifyP& mdataP;
+  IDataNotifyH& mdataH;
+};
+#endif

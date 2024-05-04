@@ -1,29 +1,19 @@
-#ifndef PRESS
-#define PRESS
-#include "idatanotifyp.h" // for IDataNotifyp
-#include "imeasurementsupdate.h" // for IMeasurementsUpdate
-#include "ifloatdataprovider.h" // for IFloatDataProvider       
-class Press: public IFloatDataProvider, public IMeasurementsUpdate, public IDataNotifyP
+#include "press.h"
+
+void Press::Calculation() 
 {
-public:
-  void Calculation() override // uses IMeasurementsUpdate
-  {
-    value = (static_cast<float>(adcP) / 16.0f) * 0.18f;
-  }
-    
-  void  OnUpdate(int32_t registerCodeP)  override  // uses IDataNotifyP
-  {
-    adcP = registerCodeP;
-  }
-    
-  float GetData() override  // uses IFloatDataProvider
-  {
-   return value;
-  } 
-  
-private:
-   int32_t adcP;
-   float value;
-    
+  auto bitShiftRight = 16.0f;
+  auto resolutionPressure = 0.18f;
+  value = (static_cast<float>(adcP) / bitShiftRight) * resolutionPressure;
+
+}
+
+void Press::OnUpdate(int32_t registerCodeP) 
+{
+  adcP = registerCodeP;
+}
+
+float Press::GetData() 
+{
+  return value;
 };
-#endif

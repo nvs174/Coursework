@@ -1,34 +1,26 @@
-#ifndef TEMPERATURE
-#define TEMPERATURE
-#include "idatanotifyt.h" // for IDataNotifyT
-#include "imeasurementsupdate.h" // for IMeasurementsUpdate
-#include "ifloatdataprovider.h" // for IFloatDataProvider 
-class Temperature: public IFloatDataProvider, public IMeasurementsUpdate, public IDataNotifyT
+#include "temperature.h"
+
+void Temperature::OnUpdate(uint16_t digRegT1, int16_t digRegT3, int32_t registerCodeT) 
 {
-  public:
-  void  OnUpdate(uint16_t digRegT1, int16_t digRegT3, int32_t registerCodeT)  override  // // uses IDataNotifyT
-  {
-    adcT = registerCodeT;
-    digT1 = digRegT1;
-    digT3 = digRegT3;
-  }
-  
-   void Calculation() override // uses IMeasurementsUpdate
-  {
-    auto measuredX = ((static_cast<float>(adcT) / 16.0f) - static_cast<float>(digT1));
-    temperature = measuredX * static_cast<float>(digT1) + ((measuredX * measuredX * static_cast<float>(digT3)) / 65536.0f);
-    temperature = temperature / 1024.0f;
-  }
-    
-  float GetData() override // uses IFloatDataProvider
-  {
-    return temperature;
-  }  
-  
-private:
-  float temperature;
-  uint16_t digT1;
-  int16_t digT3;
-  int32_t adcT; 
-};
-#endif
+  adcT = registerCodeT;
+  digT1 = digRegT1;
+  digT3 = digRegT3;
+}
+
+ void Temperature::Calculation()
+{
+  auto bitShiftRight1 = 16.0f;
+  auto bitShiftRight2 = 1024.0f;
+  auto maxValueint16 = 65536.0f;
+  auto measuredX = ((static_cast<float>(adcT) / bitShiftRight1) - static_cast<float>(digT1));
+  temperature = measuredX * static_cast<float>(digT1) + ((measuredX * measuredX * static_cast<float>(digT3)) / maxValueint16);
+  temperature = temperature / bitShiftRight2;
+}
+   float Temperature::GetData()
+{
+  temperature = 23;
+  return temperature;
+}  
+ 
+
+
