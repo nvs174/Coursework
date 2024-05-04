@@ -1,9 +1,9 @@
 #ifndef IDATANOTIFYP
 #define IDATANOTIFYP
-#include <iostream> // for int32_t
+#include <cstdint> // for std::int32_t
 class IDataNotifyP
 {
 public:
-  virtual void OnUpdate(int32_t registerCodeP) = 0;
+  virtual void OnUpdate(std::int32_t registerCodeP) = 0;
 };
 #endif
