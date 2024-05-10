@@ -1,10 +1,8 @@
 #ifndef ISPI
 #define ISPI
-
-#include <iostream>
 class ISpi
 {
-public:
+public: // TODO исправить функции, пока что используется как затычка
   virtual void WriteByte() = 0;
   virtual void ReadByte() = 0;
   virtual void ReadWord() = 0;
