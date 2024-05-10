@@ -3,11 +3,11 @@
 
 void DewPoint::Calculation()
 {
-  constexpr float a = 17.27f; // �������� ������ � ���������
-  constexpr float b = 237.7f; // �������� ������ � ���������, �������
-  const auto temperature = mdataT.GetData();
-  const auto humidity = mdataH.GetData();
-  float measuredY = ((a * temperature) / (b + temperature)); //+ log(humidity);
+  constexpr float a = 17.27f; // значение взятые с википедии
+  constexpr float b = 237.7f; // значение взятые с википедии, градусы
+  auto temperature = mdataT.GetData();
+  auto humidity = mdataH.GetData();
+  float measuredY = ((a * temperature) / (b + temperature)); //TODO поправить + log(humidity);
   value = (b * measuredY) / (a - measuredY);
 }
  
