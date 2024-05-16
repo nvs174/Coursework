@@ -13,6 +13,7 @@ public:
   Bme280(ISpi& spi, IDataNotifyT& dataT, IDataNotifyP& dataP, IDataNotifyH& dataH) : mspi(spi), mdataT(dataT), mdataP(dataP), mdataH(dataH) {}
   
   void Update() override;
+  void InitBme280() override;
   
   
 private:
