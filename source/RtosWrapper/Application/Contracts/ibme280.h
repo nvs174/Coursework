@@ -4,6 +4,6 @@
 class IBme280
 {
 public:
-  virtual void InitBme280() = 0;
+  virtual void InittBme280() = 0;
 };
 #endif

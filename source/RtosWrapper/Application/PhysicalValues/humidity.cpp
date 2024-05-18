@@ -3,7 +3,8 @@
 void Humidity::Calculation() 
 {
   constexpr auto resolutionHumidity = 0.008f;
-  value = static_cast<float>(adcH) * resolutionHumidity;
+  constexpr auto divider = -10.0f;
+  value = (static_cast<float>(adcH) ) * resolutionHumidity / divider;
 }
 
 void Humidity::OnUpdate(int16_t registerCodeH)
@@ -13,7 +14,6 @@ void Humidity::OnUpdate(int16_t registerCodeH)
 
 float Humidity::GetData() 
 {
-  value = 22;
   return value;
 };
 

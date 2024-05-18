@@ -79,3 +79,7 @@
 #define be24toword(a) ((((a)>>16)&0x000000ff)|((a)&0x0000ff00)|(((a)<<16)&0x00ff0000))/*Функция перестановки байтов*/
 
 #define be16toword(a) ((((a)>>8)&0xff)|(((a)<<8)&0xff00))/*Функция перестановки байтов*/
+
+
+#define SPI_WRITE 0x7F
+#define SPI_READ 0x80

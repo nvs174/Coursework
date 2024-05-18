@@ -4,7 +4,6 @@
 #include "imeasurementsupdate.h" // for IMeasurementsUpdate
 #include "ifloatdataprovider.h" // for IFloatDataProvider 
 
-
 class DewPoint: public IFloatDataProvider, public IMeasurementsUpdate
 {
 public:
