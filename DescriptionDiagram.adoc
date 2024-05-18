@@ -52,7 +52,6 @@ image::picter/8.png[]
 
 .Диаграмма "Обновление регистров"
 
-image::picter/3.jpg[]
 
 image::picter/9.png[]
 
