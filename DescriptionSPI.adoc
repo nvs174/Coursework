@@ -1,6 +1,10 @@
 :stem:
 == Подключение SPI
 
+.Диаграмма SPI
+image::picter4/14.png[]
+
+
 .Настройка SPI интерфейса
 image::picter4/7.png[]
 
