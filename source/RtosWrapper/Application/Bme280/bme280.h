@@ -6,15 +6,21 @@
 #include "idatanotifyp.h" // for mdataP(dataP)
 #include "idatanotifyh.h" // for mdataH(dataH)
 #include "registerbme280.h" // for BME280_REGISTER_
-class Bme280: public IMeasurementsController//, public IBme280
+#include "spi.h" // for spi
+
+#include "spi2fieldvalues.hpp" // for SPI2 TODO удалить
+#include "spi2registers.hpp" // TODO удалить 
+#include "gpiobregisters.hpp"  // for GPIOB TODO удалить
+#include "ibme280.h" // for Init BME280
+
+class Bme280: public IMeasurementsController, public IBme280
 {
   
 public:
   Bme280(ISpi& spi, IDataNotifyT& dataT, IDataNotifyP& dataP, IDataNotifyH& dataH) : mspi(spi), mdataT(dataT), mdataP(dataP), mdataH(dataH) {}
   
   void Update() override;
-  void InitBme280() override;
-  
+  void InittBme280() override;
   
 private:
   uint16_t digRegT1;
