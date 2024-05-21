@@ -1,0 +1,31 @@
+:stem:
+== Подключение SPI
+
+.Диаграмма SPI
+image::picter4/14.png[]
+
+
+.Настройка SPI интерфейса
+image::picter4/7.png[]
+
+.SPI Write
+image::picter4/8.png[]
+
+.SPI Read
+image::picter4/9.png[]
+
+
+.Конфигурация SPI2
+image::picter4/10.jpeg[]
+
+
+.Конфигурация SPI на датчике
+image::picter4/11.png[]
+
+
+.Подключение датчика к отладочной плате
+image::picter4/12.png[]
+
+.VCC, GND
+image::picter4/13.png[]
+
