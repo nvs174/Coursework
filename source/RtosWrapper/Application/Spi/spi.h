@@ -1,7 +1,6 @@
 #ifndef SPI
 #define SPI
 #include "ispi.h" // for mode Spi
-
 #include "spi2fieldvalues.hpp" // for SPI2
 #include "spi2registers.hpp"  // for SPI2
 #include "gpiobregisters.hpp"  // for GPIOB
