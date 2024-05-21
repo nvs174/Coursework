@@ -1,5 +1,8 @@
 :stem:
 :toc: macro 
+:toc-title: Содержание
+:sectnumlevels: 2
+:sectnums:
 
 [.text-center]
 Министерство науки и высшего образования Российской Федерации +
