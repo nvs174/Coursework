@@ -2,7 +2,7 @@
 
 uint8_t Spi::ReadByte(uint8_t byte, uint8_t bytcount) 
 {  
-  uint8_t rx[8] = {0};
+  uint8_t rx[2] = {0};
   uint8_t resalt;
   while(!SPI2::SR::BSY::NotBusy::IsSet()) {}
   GPIOB::ODR::ODR12::High::Set();
